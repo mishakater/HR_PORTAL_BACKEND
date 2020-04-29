@@ -5,6 +5,12 @@ const bcrypt = require('bcryptjs');
 
 
 
+const cors = require('cors');
+const express = require('express');
+let app = express();
+app.use(cors());
+app.options('*', cors());
+
 router.post('/register', async (req,res) => {
 
 
