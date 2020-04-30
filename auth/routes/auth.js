@@ -22,7 +22,7 @@ router.post('/register', async (req, res) => {
 
     //checking if the user is already in database
     const emailExist = await User.findOne({email: req.body.email});
-    if (emailExist) return res.status(404).send('Email already exists!');
+    if (emailExist) return res.status(400).send('Email already exists!');
 
     //Hash passwords
     const salt = await bcrypt.genSalt(10);
@@ -44,26 +44,17 @@ router.post('/register', async (req, res) => {
 
 //LOGIN
 router.post('/login', async (req, res) => {
-    // jwt.verify(req.token, 'secretkey', (err, authData) => {
-    //     if (err) {
-    //         res.sendStatus(403);
-    //     } else {
-    //         res.json({
-    //             authData
-    //         });
-    //     }
-    // });
     //lets validate a data before we make a user
     const {error} = loginValidation(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     //checking if the email exists
     const user = await User.findOne({email: req.body.email});
-    if ( !user) return res.status(404).send('Email or password is wrong');
+    if ( !user) return res.status(400).send('Email or password is wrong');
 
     //PASSWORD is correct
     const validPass = await bcrypt.compare(req.body.password, user.password);
-    if ( !validPass) return res.status(404).send('Email or password is wrong');
+    if ( !validPass) return res.status(400).send('Email or password is wrong');
 
     // Create and assign a token
     const token = jwt.sign({
@@ -73,30 +64,6 @@ router.post('/login', async (req, res) => {
     }, 'secretkey');
     res.header('auth-token', token).send(token);
 });
-
-// FORMAT of token
-// Authorization: Bearer <access_token>
-
-// Verify Token
-
-function verifyToken(req, res, next) {
-    // Get auth header value
-    const bearerHeader = req.headers['authorization'];
-    // Check if bearer is undefined
-    if (typeof bearerHeader !== 'undefined') {
-        // Split at the space
-        const bearer = bearerHeader.split(' ');
-        // Get token from array
-        const bearerToken = bearer[1];
-        // Set the token
-        req.token = bearerToken;
-        // Next middleware
-        next();
-    } else {
-        // Forbidden
-        res.sendStatus(403);
-    }
-}
 
 
 module.exports = router;
