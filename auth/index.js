@@ -1,5 +1,6 @@
+const cors = require('cors');
 const express = require('express');
-const app = express();
+let app = express();
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
@@ -16,6 +17,9 @@ mongoose.connect('mongodb+srv://Misha:08i07i@auth-ovogf.gcp.mongodb.net/test?ret
 
 //Middleware
 app.use(express.json());
+
+app.use(cors());
+app.options('*', cors());
 
 
 
