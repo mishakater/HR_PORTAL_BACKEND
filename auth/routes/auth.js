@@ -22,7 +22,7 @@ router.post('/register', async (req, res) => {
 
     //checking if the user is already in database
     const emailExist = await User.findOne({email: req.body.email});
-    if (emailExist) return res.status(400).send('Email already exists!');
+    if (emailExist) return res.status(400).send(`Адрес ${req.body.email} уже зарегестрирован!`);
 
     //Hash passwords
     const salt = await bcrypt.genSalt(10);
@@ -50,18 +50,18 @@ router.post('/login', async (req, res) => {
 
     //checking if the email exists
     const user = await User.findOne({email: req.body.email});
-    if ( !user) return res.status(400).send('Email or password is wrong');
+    if ( !user) return res.status(400).send('Эл. почта или пароль неверные!');
 
     //PASSWORD is correct
     const validPass = await bcrypt.compare(req.body.password, user.password);
-    if ( !validPass) return res.status(400).send('Email or password is wrong');
+    if ( !validPass) return res.status(400).send('Эл. почта или пароль неверные!');
 
     // Create and assign a token
     const token = jwt.sign({
         email: user.email,
         name: user.name,
         userId: user._id
-    }, 'secretkey');
+    }, 'secretkey', {expiresIn: '1h'});
     res.header('auth-token', token).send(token);
 });
 
