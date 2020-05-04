@@ -61,7 +61,7 @@ router.post('/login', async (req, res) => {
         email: user.email,
         name: user.name,
         userId: user._id
-    }, 'secretkey', {expiresIn: '1h'});
+    }, 'secretkey', {expiresIn: '20s'});
     res.header('auth-token', token).send(token);
 });
 
