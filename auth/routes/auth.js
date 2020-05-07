@@ -50,21 +50,29 @@ router.post('/login', async (req, res) => {
 
       //checking if the email exists
       const user = await User.findOne({email: req.body.email});
-      if(!user) return res.status(400).send('Email or password is wrong');
+      if(!user) return res.status(400).send('Эл. почта или пароль неверные!');
 
       //PASSWORD is correct
       const validPass = await bcrypt.compare(req.body.password, user.password);
-      if(!validPass) return res.status(400).send('Email or password is wrong')
+      if(!validPass) return res.status(400).send('Эл. почта или пароль неверные!');
       
       //Create and assign a token
-      const token = jwt.sign({_id: user._id}, TOKEN_SECRET);
-      res.header('auth-token', token).send(token);
+      const token = jwt.sign({
+        email: user.email,
+        name: user.name,
+        userId: user._id
+    }, 'secretkey', {expiresIn: '20s'});
 
-      res.send({ user: user.name}); 
+    res.header('auth-token', token).send(token);
+
+    res.send({ user: user.name}); 
       
       
 
 });
+
+
+
 
 
 
