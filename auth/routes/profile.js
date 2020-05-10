@@ -55,8 +55,8 @@ router.get('/profile/all', async (req, res) => {
     res.json({
         status: true,
         users: users.map(u => ({
-            ...u,
-            profile: profiles.find(p => p.userId === u._id)
+            ...u.json(),
+            profile: profiles.find(p => p.userId === u._id).json()
         }))
     })
 });
