@@ -1,16 +1,16 @@
 const router = require('express').Router();
 const Profile = require('../model/Profile');
 
-router.post('/profileadd', async (req, res) => {
+router.post('/profile', async (req, res) => {
     const profile = new Profile({
+        userId: req.body.userId,
         companyName: req.body.companyName,
         workExperience: req.body.workExperience,
         phone: req.body.phone,
         facebookLink: req.body.facebookLink,
         linkedinLink: req.body.linkedinLink,
         githubLink: req.body.githubLink,
-        googleLink: req.body.googleLink,
-
+        googleLink: req.body.googleLink
     });
     try {
         const savedProfile = await profile.save();
@@ -20,14 +20,31 @@ router.post('/profileadd', async (req, res) => {
     }
 });
 
-router.get('/profileadd', function (req, res, next) {
-    Profile.find({}, function (err, profiles) {
-        if (err) {
-            res.send("ERROR");
-            next();
-        }
-        res.json(profiles);
-    })
+router.get('/profile', async function (req, res, next) {
+    const { userId } = req.body;
+
+    if (!userId) {
+        res.json({
+            status: false,
+            error: 'invalid_request',
+            message: '\'userId\' field is required.'
+        });
+    }
+
+    const profile = await Profile.find({ userId });
+
+    if (!profile) {
+        res.json({
+            status: false,
+            error: 'not_found',
+            message: 'Profile for user with given ID does not exist.'
+        });
+    }
+
+    res.json({
+        status: true,
+        profile
+    });
 });
 
 
