@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Profile = require('../model/Profile');
+const User = require('../model/User');
 
 router.post('/profile', async (req, res) => {
     const profile = new Profile({
@@ -21,7 +22,7 @@ router.post('/profile', async (req, res) => {
 });
 
 router.get('/profile', async function (req, res, next) {
-    const { userId } = req.params;
+    const { userId } = req.query;
 
     if (!userId) {
         res.json({
@@ -45,6 +46,19 @@ router.get('/profile', async function (req, res, next) {
         status: true,
         profile
     });
+});
+
+router.get('/profile/all', async (req, res) => {
+    const users = await User.find();
+    const profiles = await Profile.find();
+
+    res.json({
+        status: true,
+        users: users.map(u => ({
+            ...u,
+            profile: profiles.find(p => p.userId === u._id)
+        }))
+    })
 });
 
 
