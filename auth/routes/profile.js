@@ -48,15 +48,17 @@ router.get('/profile', async function (req, res, next) {
     });
 });
 
+const toObject = d => d.toObject()
+
 router.get('/profile/all', async (req, res) => {
-    const users = await User.find();
-    const profiles = await Profile.find();
+    const users = (await User.find()).map(toObject);
+    const profiles = (await Profile.find()).map(toObject);
 
     res.json({
         status: true,
         users: users.map(u => ({
-            ...u.json(),
-            profile: profiles.find(p => p.userId === u._id).json()
+            ...u,
+            profile: profiles.find(p => String(p.userId) === String(u._id))
         }))
     })
 });
