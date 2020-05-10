@@ -36,7 +36,7 @@ router.post('/register', async (req,res) => {
     });
     try {
         const savedUser = await user.save();
-        res.send({ user: user._id });
+        res.send({ userId: user._id });
     }catch (err) {
         res.status(400).send(err);
     }
@@ -65,11 +65,19 @@ router.post('/login', async (req, res) => {
 
     res.header('auth-token', token).send(token);
 
-    res.send({ user: user.name}); 
-      
-      
-
+    res.send({ user: user.name});
 });
+
+router.get('/all', function (req, res) {
+    User.find({}, function (err, users) {
+        if (err) {
+            res.send("ERROR");
+            next();
+        }
+        res.json(users);
+    })
+});
+
 
 
 
