@@ -21,7 +21,7 @@ router.post('/profile', async (req, res) => {
 });
 
 router.get('/profile', async function (req, res, next) {
-    const { userId } = req.body;
+    const { userId } = req.params;
 
     if (!userId) {
         res.json({
