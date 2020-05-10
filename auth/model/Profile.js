@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const profileSchema = new mongoose.Schema({
     userId: {
-      type: mongoose.Types.Document,
+      type: mongoose.Types.ObjectId,
       required: true
     },
     companyName: {
