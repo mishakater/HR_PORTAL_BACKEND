@@ -4,6 +4,7 @@ const Vacancy = require('../model/Vacancy');
 router.post('/vacancy', async (req, res) => {
     const vacancy = new Vacancy({
         heading: req.body.heading,
+        company: req.body.company,
         description: req.body.description,
         salary: req.body.salary,
 

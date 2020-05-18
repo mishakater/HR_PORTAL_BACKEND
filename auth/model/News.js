@@ -1,23 +1,18 @@
 const mongoose = require('mongoose');
 
-const vacancySchema = new mongoose.Schema({
-    heading: {
+const newsSchema = new mongoose.Schema({
+    imgUrl: {
         type: String,
         required: true,
-        max: 255
+        max: 1000
     },
-    company: {
-        type: String,
-        required: true,
-        max: 255
-    },
-    description: {
+    header: {
         type: String,
         required: true,
         max: 2000
     },
-    salary: {
-        type: Number,
+    text: {
+        type: String,
         required: false,
         max: 1000000
     },
@@ -27,4 +22,4 @@ const vacancySchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Vacancy', vacancySchema);
+module.exports = mongoose.model('News', newsSchema);

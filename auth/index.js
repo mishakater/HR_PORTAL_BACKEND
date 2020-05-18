@@ -16,6 +16,7 @@ const authRoute = require('./routes/auth');
 const postRoute = require('./routes/post');
 const profRoute = require('./routes/profile');
 const vacanRoute = require('./routes/vacan');
+const newsRoute = require('./routes/news');
 
 
 dotenv.config();
@@ -34,6 +35,7 @@ app.use('/api/user', authRoute);
 app.use('/api/posts', postRoute);
 app.use('/api/user', profRoute);
 app.use('/api/vacan', vacanRoute);
+app.use('/api/news', newsRoute);
 
 
 
