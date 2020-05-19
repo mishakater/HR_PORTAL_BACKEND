@@ -11,6 +11,11 @@ const newsSchema = new mongoose.Schema({
         required: true,
         max: 2000
     },
+    shortDescription: {
+        type: String,
+        required: true,
+        max: 7000
+    },
     text: {
         type: String,
         required: false,

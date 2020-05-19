@@ -5,6 +5,7 @@ router.post('/news', async (req, res) => {
     const news = new News({
         imgUrl: req.body.imgUrl,
         header: req.body.header,
+        shortDescription: req.body.shortDescription,
         text: req.body.text
 
     });
