@@ -7,7 +7,8 @@ router.post('/vacancy', async (req, res) => {
         company: req.body.company,
         description: req.body.description,
         salary: req.body.salary,
-
+        category: req.body.category,
+        employment: req.body.employment
     });
     try {
         const savedVacancy = await vacancy.save();

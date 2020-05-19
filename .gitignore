@@ -1,0 +1,4 @@
+
+auth/node_modules/.bin/is-ci
+auth/node_modules/
+auth/node_modules/fsevents/
