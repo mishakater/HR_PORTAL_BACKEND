@@ -21,6 +21,8 @@ router.post('/profile', async (req, res) => {
     }
 });
 
+const toObject = d => d.toObject();
+
 router.get('/profile', async function (req, res, next) {
     const {userId} = req.query;
 
@@ -32,7 +34,8 @@ router.get('/profile', async function (req, res, next) {
         });
     }
 
-    const profile = await Profile.find({userId});
+    const user = (await User.find({_id: userId})).map(toObject);
+    const profile = (await Profile.find({userId})).map(toObject);
 
     if ( !profile) {
         res.json({
@@ -42,13 +45,12 @@ router.get('/profile', async function (req, res, next) {
         });
     }
 
-    res.json({
-        status: true,
-        profile
-    });
+    res.json(user.map(u => ({
+        ...u,
+        profile: profile.find(p => String(p.userId) === String(u._id))
+    })));
 });
 
-const toObject = d => d.toObject();
 
 router.get('/profile/all', async (req, res) => {
     const users = (await User.find()).map(toObject);

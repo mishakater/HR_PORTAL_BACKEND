@@ -17,6 +17,7 @@ const postRoute = require('./routes/post');
 const profRoute = require('./routes/profile');
 const vacanRoute = require('./routes/vacan');
 const newsRoute = require('./routes/news');
+const commentsRoute = require('./routes/comments');
 
 
 dotenv.config();
@@ -36,6 +37,7 @@ app.use('/api/posts', postRoute);
 app.use('/api/user', profRoute);
 app.use('/api/vacan', vacanRoute);
 app.use('/api/news', newsRoute);
+app.use('/api/user/comments',commentsRoute);
 
 
 
