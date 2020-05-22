@@ -20,6 +20,11 @@ const profileSchema = new mongoose.Schema({
         required: false,
         max: 5000000000000
     },
+    rating:{
+      type: Number,
+      required: true,
+      max: 5
+    },
     facebookLink: {
         type: String,
         required: false,

@@ -8,6 +8,7 @@ router.post('/profile', async (req, res) => {
         companyName: req.body.companyName,
         workExperience: req.body.workExperience,
         phone: req.body.phone,
+        rating: req.body.rating,
         facebookLink: req.body.facebookLink,
         linkedinLink: req.body.linkedinLink,
         githubLink: req.body.githubLink,
