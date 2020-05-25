@@ -1,5 +1,6 @@
 const router = require('express').Router();
 import Feedbacks from '../model/Feedbacks';
+import Users from '../model/User';
 
 router.post('/feedbacks', async (req, res) => {
   const { from, text, userId } = req.body;
@@ -16,8 +17,13 @@ router.get('/feedbacks', async (req, res) => {
 
   const feedbacks = (await Feedbacks.find({ userId })).map(f => f.toObject());
 
+  const users = (await Users.find({ _id: { $in: feedbacks.map(f => f.from) }})).map(u => u.toObject());
+
   res.json({
     status: true,
-    feedbacks
+    feedbacks: feedbacks.map(f => ({
+      ...f,
+      from: users.find(({ _id }) => _id === f.from)
+    }))
   })
 });
