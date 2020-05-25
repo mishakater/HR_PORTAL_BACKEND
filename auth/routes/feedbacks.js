@@ -17,10 +17,7 @@ router.get('/feedbacks', async (req, res) => {
 
   const feedbacks = (await Feedbacks.find({ userId })).map(f => f.toObject());
 
-  res.json({
-    status: true,
-    feedbacks
-  })
+  res.json(feedbacks)
 });
 
 module.exports = router;
