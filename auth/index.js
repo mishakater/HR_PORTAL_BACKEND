@@ -14,6 +14,10 @@ app.options('*', cors());
 //Import Routes
 const authRoute = require('./routes/auth');
 const postRoute = require('./routes/post');
+const profRoute = require('./routes/profile');
+const vacanRoute = require('./routes/vacancy');
+const newsRoute = require('./routes/news');
+const feedbackRoute = require('./routes/feedbacks');
 
 
 dotenv.config();
@@ -30,6 +34,10 @@ app.use(express.json());
 //Route Middlewares
 app.use('/api/user', authRoute);
 app.use('/api/posts', postRoute);
+app.use('/api/user', profRoute);
+app.use('/api/vacan', vacanRoute);
+app.use('/api/news', newsRoute);
+app.use('/api/user', feedbackRoute);
 
 
 app.listen(3000, () => console.log('Server up and running'));

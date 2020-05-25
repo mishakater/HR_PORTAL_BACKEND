@@ -1,5 +1,5 @@
 const router = require('express').Router();
-import Feedbacks from '../model/Feedbacks';
+const Feedbacks = require('../model/Feedbacks');
 import Users from '../model/User';
 
 router.post('/feedbacks', async (req, res) => {
@@ -9,11 +9,12 @@ router.post('/feedbacks', async (req, res) => {
 
   res.json({
     status: true,
+    msg: 'POSTED'
   })
 });
 
 router.get('/feedbacks', async (req, res) => {
-  const { userId } = req.params;
+  const { userId } = req.query;
 
   const feedbacks = (await Feedbacks.find({ userId })).map(f => f.toObject());
 
@@ -27,3 +28,6 @@ router.get('/feedbacks', async (req, res) => {
     }))
   })
 });
+
+module.exports = router;
+
