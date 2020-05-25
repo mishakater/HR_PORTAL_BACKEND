@@ -15,6 +15,8 @@ app.options('*', cors());
 const authRoute = require('./routes/auth');
 const postRoute = require('./routes/post');
 const profRoute = require('./routes/profile');
+const vacanRoute = require('./routes/vacancy');
+const newsRoute = require('./routes/news');
 const feedbackRoute = require('./routes/feedbacks');
 
 
@@ -33,6 +35,8 @@ app.use(express.json());
 app.use('/api/user', authRoute);
 app.use('/api/posts', postRoute);
 app.use('/api/user', profRoute);
+app.use('/api/vacan', vacanRoute);
+app.use('/api/news', newsRoute);
 app.use('/api/user', feedbackRoute);
 
 

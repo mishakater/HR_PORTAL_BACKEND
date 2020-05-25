@@ -6,6 +6,11 @@ const vacancySchema = new mongoose.Schema({
         required: true,
         max: 255
     },
+    company: {
+        type: String,
+        required: true,
+        max: 255
+    },
     description: {
         type: String,
         required: true,
@@ -15,6 +20,16 @@ const vacancySchema = new mongoose.Schema({
         type: Number,
         required: false,
         max: 1000000
+    },
+    category: {
+        type: String,
+        required: true,
+        max: 255
+    },
+    employment:{
+        type: String,
+        required: true,
+        max: 255
     },
     date: {
         type: Date,
