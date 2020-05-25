@@ -19,4 +19,4 @@ const feedbacksSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Profile', feedbacksSchema);
+module.exports = mongoose.model('Feedbacks', feedbacksSchema);
