@@ -5,8 +5,8 @@ const feedbacksSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         required: true
     },
-    fromUser: {
-        type: Array,
+    from: {
+        type: mongoose.Types.ObjectId,
         required: true
     },
     text: {
