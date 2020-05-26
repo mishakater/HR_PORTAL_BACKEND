@@ -5,9 +5,8 @@ const Profile = require('../model/Profile');
 
 router.post('/feedbacks', async (req, res) => {
     const {from, text, userId} = req.body;
-
-    await Feedbacks.create({from, text, userId, createdAt: new Date()});
-
+    const feedback = await Feedbacks.create({from, text, userId, createdAt: new Date()});
+    if (!feedback) return res.string(401).send('error');
     res.json({
         status: true,
         msg: 'POSTED'
