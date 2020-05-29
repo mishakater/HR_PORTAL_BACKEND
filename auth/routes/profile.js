@@ -75,4 +75,30 @@ router.put('/profile/:userId', async (req, res) => {
     res.json({ status: true });
   })
 
+router.post('/profile/delete/:userId', async (req, res) => {
+    
+    const { userId } = req.params;
+    const message = {};
+ 
+  
+   await Profile.deleteOne(userId , function(err) {
+       if (!err) {
+               message.type = 'profile is deleted';
+       }
+       else {
+               message.type = 'error';
+       }
+   });
+
+   await User.deleteOne( {_id:userId} , function(err) {
+       if (!err) {
+               message.type = 'user is deleted';
+       }
+       else {
+               message.type = 'error';
+       }
+   });
+ 
+   res.json({ status: true });
+ })    
 module.exports = router;
