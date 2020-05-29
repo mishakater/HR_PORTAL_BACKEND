@@ -67,10 +67,10 @@ router.get('/profile/all', async (req, res) => {
 });
 
 router.put('/profile/:userId', async (req, res) => {
-    const { name, email } = req.body;
+    const { companyName, workExperience, phone, facebookLink, linkedinLink, githubLink, googleLink} = req.body;
     const { userId } = req.params;
   
-    await Profiles.update({ userId }, { name, email });
+    await Profile.update({ userId }, { companyName, workExperience, phone, facebookLink, linkedinLink, githubLink, googleLink });
   
     res.json({ status: true });
   })
