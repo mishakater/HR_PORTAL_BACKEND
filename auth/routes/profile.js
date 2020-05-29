@@ -66,5 +66,13 @@ router.get('/profile/all', async (req, res) => {
     })))
 });
 
+router.put('/profile/:userId', async (req, res) => {
+    const { name, email } = req.body;
+    const { userId } = req.params;
+  
+    await Profiles.update({ userId }, { name, email });
+  
+    res.json({ status: true });
+  })
 
 module.exports = router;
