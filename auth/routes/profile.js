@@ -69,36 +69,23 @@ router.get('/profile/all', async (req, res) => {
 router.put('/profile/:userId', async (req, res) => {
     const { companyName, workExperience, phone, facebookLink, linkedinLink, githubLink, googleLink} = req.body;
     const { userId } = req.params;
-  
+
     await Profile.update({ userId }, { companyName, workExperience, phone, facebookLink, linkedinLink, githubLink, googleLink });
-  
+
     res.json({ status: true });
   })
 
 router.post('/profile/delete/:userId', async (req, res) => {
-    
     const { userId } = req.params;
-    const message = {};
- 
-  
-   await Profile.deleteOne(userId , function(err) {
-       if (!err) {
-               message.type = 'profile is deleted';
-       }
-       else {
-               message.type = 'error';
-       }
-   });
 
-   await User.deleteOne( {_id:userId} , function(err) {
-       if (!err) {
-               message.type = 'user is deleted';
-       }
-       else {
-               message.type = 'error';
-       }
-   });
- 
-   res.json({ status: true });
- })    
+    try {
+        await Profile.deleteOne({ userId });
+        await User.deleteOne({ _id: userId });
+    } catch (error) {
+        res.json({ status: false, error });
+    }
+
+
+    res.json({ status: true });
+ })
 module.exports = router;
