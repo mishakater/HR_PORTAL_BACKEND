@@ -4,14 +4,17 @@ const User = require('../model/User');
 
 router.post('/profile', async (req, res) => {
     const profile = new Profile({
+        userId: req.body.userId,
         companyName: req.body.companyName,
+        jobPosition: req.body.jobPosition,
         workExperience: req.body.workExperience,
+        salary: req.body.salary,
         phone: req.body.phone,
         rating: req.body.rating,
         facebookLink: req.body.facebookLink,
         linkedinLink: req.body.linkedinLink,
         githubLink: req.body.githubLink,
-        googleLink: req.body.googleLink,
+        telegramLink: req.body.telegramLink,
 
     });
     try{
@@ -67,13 +70,13 @@ router.get('/profile/all', async (req, res) => {
 });
 
 router.put('/profile/:userId', async (req, res) => {
-    const { companyName, workExperience, phone, facebookLink, linkedinLink, githubLink, googleLink} = req.body;
+    const { companyName, jobPosition, workExperience, salary, phone, facebookLink, linkedinLink, githubLink, telegramLink} = req.body;
     const { userId } = req.params;
 
-    await Profile.update({ userId }, { companyName, workExperience, phone, facebookLink, linkedinLink, githubLink, googleLink });
+    await Profile.update({ userId }, { companyName, jobPosition, workExperience, salary, phone, facebookLink, linkedinLink, githubLink, telegramLink });
 
     res.json({ status: true });
-  })
+  });
 
 router.post('/profile/delete/:userId', async (req, res) => {
     const { userId } = req.params;

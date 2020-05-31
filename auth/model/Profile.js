@@ -10,10 +10,19 @@ const profileSchema = new mongoose.Schema({
         required: false,
         max: 255
     },
-    workExperience: {
-        type: Number,
+    jobPosition: {
+        type: String,
         required: false,
         max: 255
+    },
+    workExperience: {
+        type: String,
+        required: false,
+        max: 255
+    },
+    salary: {
+        type: Number,
+        required: false,
     },
     phone: {
         type: Number,
@@ -22,7 +31,7 @@ const profileSchema = new mongoose.Schema({
     },
     rating:{
         type: Number,
-        required: true,
+        required: false,
         max: 10
     },
     facebookLink: {
@@ -40,7 +49,7 @@ const profileSchema = new mongoose.Schema({
         required: false,
         max: 255
     },
-    googleLink: {
+    telegramLink: {
         type: String,
         required: false,
         max: 255

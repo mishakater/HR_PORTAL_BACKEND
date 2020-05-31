@@ -18,7 +18,7 @@ router.post('/vacancy', async (req, res) => {
     }
 });
 
-router.get('/vacancy', function (req, res) {
+router.get('/vacancy/all', function (req, res) {
     Vacancy.find({}, function (err, vacancies) {
         if (err) {
             res.send("ERROR");
