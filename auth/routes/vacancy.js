@@ -18,6 +18,30 @@ router.post('/vacancy', async (req, res) => {
     }
 });
 
+router.get('/vacancy', async function (req, res, next) {
+    const {vacancyID} = req.query;
+
+    if ( !vacancyID) {
+        res.json({
+            status: false,
+            error: 'invalid_request',
+            message: '\'id\' field is required.'
+        });
+    }
+
+    const vacancy = await Vacancy.find({_id: vacancyID});
+
+    if ( !vacancy) {
+        res.json({
+            status: false,
+            error: 'not_found',
+            message: 'Vacancy post with given ID does not exist.'
+        });
+    }
+
+    res.json(...vacancy);
+});
+
 router.get('/vacancy/all', function (req, res) {
     Vacancy.find({}, function (err, vacancies) {
         if (err) {
