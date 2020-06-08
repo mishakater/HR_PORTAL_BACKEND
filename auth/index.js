@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
 const cors = require('cors');
+const PORT = process.env.PORT || 3000;
 
 
 app.use(cors());
@@ -40,5 +41,5 @@ app.use('/api/news', newsRoute);
 app.use('/api/user', feedbackRoute);
 
 
-app.listen(3000,'0.0.0.0', () => console.log('Server up and running'));
+app.listen(PORT,'0.0.0.0', () => console.log('Server up and running'));
 
