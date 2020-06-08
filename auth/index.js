@@ -40,5 +40,5 @@ app.use('/api/news', newsRoute);
 app.use('/api/user', feedbackRoute);
 
 
-app.listen(3000, () => console.log('Server up and running'));
+app.listen(3000,'0.0.0.0', () => console.log('Server up and running'));
 
